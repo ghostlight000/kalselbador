@@ -1587,7 +1587,7 @@ function paint(){if(!S||!S.act)return;const a=S.act,e=(Date.now()-a.t0)/1000,f=e
 // ============================================================
 // 3. 시작 — 저장 불러오기 · 보정 · 첫 화면. 모든 정의가 끝난 뒤에만 실행된다
 // ============================================================
-try{DEV=/[#?&]dev\b/.test(location.href)}catch(e){}try{TEST=DEV?(+localStorage.getItem('ktest')||0):0}catch(e){}if(DEV){const b=$('#tb');if(b&&b.style)b.style.display=''}
+try{DEV=/[#?&]dev\b/.test(location.href)&&/^(file:|https?:\/\/(localhost|127\.0\.0\.1)[:/])/.test(location.href)}catch(e){}try{TEST=DEV?(+localStorage.getItem('ktest')||0):0}catch(e){}if(DEV){const b=$('#tb');if(b&&b.style)b.style.display=''}
 try{const t=localStorage.getItem('kt');if(t)document.documentElement.dataset.theme=t}catch(e){}
 try{S=JSON.parse(localStorage.getItem(K)||'null');if(S)S=scrub(S)}catch(e){}SV0=S?S.sv||1:0;try{const w=localStorage.getItem('kpull');if(w&&S&&S.log)S.log.unshift('☁ '+w+'을 이어받았다.');localStorage.removeItem('kpull')}catch(e){}
 if(S){S.cm=S.cm||.8;if(S.tch===undefined){S.tch=0;if(S.ms>=2)S.inv.torch=(S.inv.torch||0)+1}S.hun=S.hun||0;if(S.rcp){S.rcp.roast=1;S.rcp.gfish=1}S.met=S.met||{};['n','h','r','g','a','ng','wd','po','pr','st'].forEach(k=>{if((S.qi||{})[k]||(S.qa||{})[k]||(S.sc||{})[k])S.met[k]=1});S.cold=S.cold||0;S.qi=S.qi||{};S.ct=S.ct||{g:0,d:0,c:0,r:0,m:0};if(S.ms===undefined)S.ms=99;S.qa=S.qa||{};S.dn=S.dn||[];S.cnt=S.cnt||{};S.tt=S.tt||{};if(!S.eq){S.eq={};if(S.inv.coat)S.eq.coat='coat';else if(S.inv.cloak)S.eq.coat='cloak'}S.rcp=S.rcp||{ing:1,salve:1,coat:1,mana:1};if(S.tv!==2){if(S.ms>=1&&S.ms<=6)S.mapk=1;S.tv=2}S.rcp.torch=1;S.pk=S.pk||{};if(S.spot===undefined){S.spot=null;if(S.tab>=10&&!PL[S.loc].w)S.tab=0}}

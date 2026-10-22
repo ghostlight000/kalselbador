@@ -427,6 +427,21 @@ button.p::before,button.p::after,.ab.p::before,.ab.p::after{content:none!importa
 .hb.sel::after{content:"";position:absolute;left:50%;bottom:-11px;width:8px;height:8px;margin-left:-4px;transform:rotate(45deg);background:var(--a)}
 .hb:first-child.sel::after{left:calc(50% - 6px)}
 .hbn{font-style:normal;font-size:12px;color:var(--bad);margin-left:3px;vertical-align:2px}
+.bagp{margin-top:22px}
+.igr{display:grid;grid-template-columns:repeat(auto-fill,48px);gap:7px;padding:8px 0 6px}
+button.isl{position:relative;width:48px;height:48px;padding:0!important;margin:0!important;display:flex;align-items:center;justify-content:center;color:var(--t);border-image-source:var(--sv-btn)}
+button.isl:hover:not(:disabled){border-image-source:var(--sv-btnh);color:var(--t)}
+button.isl.on{border-image-source:var(--sv-btnon);color:var(--a)}
+.isl svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.isn{position:absolute;right:5px;bottom:3px;font-size:11px;line-height:1;font-weight:700;color:var(--m)}
+.isg{position:absolute;right:4px;top:3px;font-size:10px;line-height:1;font-style:normal;font-weight:700;color:var(--sage)}
+.ise{position:absolute;left:6px;top:6px;width:5px;height:5px;transform:rotate(45deg);background:var(--a)}
+#itip{position:fixed;z-index:95;display:none;max-width:260px;padding:9px 12px 10px;pointer-events:none;background:#2a2621;color:#e6dcc8;font-size:13px;line-height:1.55;clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 5px,100% calc(100% - 5px),calc(100% - 5px) 100%,5px 100%,0 calc(100% - 5px),0 5px);filter:drop-shadow(0 4px 10px rgba(0,0,0,.4))}
+#itip b{font-family:"Nanum Myeongjo","Noto Serif KR",serif;font-size:15px;color:#e2c894}
+#itip .itm{display:block;font-size:12px;color:#a89c86;margin-top:1px}
+#itip p{margin:6px 0 0}#itip .itu{color:#b5c4a8}
+:root[data-theme=light] #itip{background:#efe6d2;color:#2b241c}:root[data-theme=light] #itip b{color:#6f542d}:root[data-theme=light] #itip .itm{color:#65584a}:root[data-theme=light] #itip .itu{color:#4f6a52}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]) #itip{background:#efe6d2;color:#2b241c}:root:not([data-theme=dark]) #itip b{color:#6f542d}:root:not([data-theme=dark]) #itip .itm{color:#65584a}:root:not([data-theme=dark]) #itip .itu{color:#4f6a52}}
 </style></head><body><main><div class=tbar style='text-align:right'><button id=tb onclick=testm() style='display:none'>즉시 완료(테스트): 끔</button> <button onclick=theme()>◐ 테마</button> <button onclick=help(0)>？ 도움말</button> <button onclick=sndo()>♪ 소리</button> <button onclick=svo()>☁ 기록</button> <button onclick=fbo()>✎ 의견</button></div><div id="app"></div><div id=hlp></div><div id=blk></div><div id=bin></div><div id=bsc></div><div id=fbx></div><div id=sndx></div><div id=svx></div></main>
 <script>
 
@@ -1579,8 +1594,98 @@ function hdr(k){MOB='act';if(k=='p')V=2;else if(k=='s')V=3;else if(k=='k')V=4;el
 const BCAT=[['eq','장비'],['tool','도구'],['food','음식'],['med','약 · 소모품'],['mat','재료'],['etc','그 밖의 것']];
 function bcat(k){if(EQ[k])return 'eq';if(['axe','pick','rod','knife','torch','lamp'].includes(k))return 'tool';if(COOK.includes(k)||k=='bread'||k=='mush')return 'food';if(MATS.has(k))return 'mat';if(USE[k])return FOOD(k)?'food':'med';return 'etc'}
 function btog(c,el){S.bc=S.bc||{};S.bc[c]=el.open?0:1;save()}
-function bagl(){S.eq=S.eq||{};S.bc=S.bc||{};const brow=k=>`<div class=row><span title="${TD[k]||''}">${IT[k][0]}${k=='dragon'?' <span class=m>'+dst()+'</span>':''}${EQ[k]?` <span class=pl><span class='${S.eq[EQ[k].s]==k?'on':''}' onclick="eqp('${k}')">${EQ[k].s=='mount'?(S.eq.mount==k?'타는 중':'타기'):S.eq[EQ[k].s]==k?'갖춤':'갖추기'}</span>${EQ[k].s=='mount'?`<span onclick="ffree('${k}')">풀어 주기</span>`:''}</span>`:''}${USE[k]?` <span class=pl><span onclick="use('${k}')" title="${USE[k][2]}">${FOOD(k)?'먹는다':'사용'}</span></span>`:''}</span><b>${S.act&&S.act.i0&&S.inv[k]>(S.act.i0[k]||0)?`<span class=gn>+${S.inv[k]-(S.act.i0[k]||0)}</span> `:''}${S.inv[k]}</b></div>`;const G={};Object.keys(S.inv).filter(k=>S.inv[k]&&IT[k]).forEach(k=>{(G[bcat(k)]=G[bcat(k)]||[]).push(k)});
-return `<div class=row><span>금화</span><b>${S.gold}</b></div>`+BCAT.filter(([c])=>G[c]).map(([c,n])=>`<details class='dl bgc' ${S.bc[c]?'':'open'} ontoggle="btog('${c}',this)"><summary>${n} <span class=m>${G[c].length}</span></summary>${G[c].map(brow).join('')}</details>`).join('')}
+// 가방 아이콘 — 24×24, 선만(stroke), currentColor
+const ICN={
+armor:"<path d='M8.5 3.5 5 5.5 3.8 10.5 6.5 11.5V19c3.6 2 7.4 2 11 0v-7.5l2.7-1L19 5.5l-3.5-2c-1 1.7-2.2 2.5-3.5 2.5s-2.5-.8-3.5-2.5Z'/><path d='M9 13.5h6M9.5 16.5h5'/>",
+coat:"<path d='M9 3.5h6l1.5 2.5 3 14.5h-15L7.5 6Z'/><path d='M9 3.5 12 8l3-4.5M12 8v12.5'/>",
+helm:"<path d='M5 16a7 7 0 0 1 14 0v4h-4.5v-3.5h-5V20H5Z'/><path d='M12 9v7.5M8 13h8'/>",
+crown:"<path d='M4.5 18.5h15L20.5 8 15.5 12 12 5.5 8.5 12 3.5 8Z'/><path d='M5 15.5h14'/>",
+shield:"<path d='M12 3.5 19 6v5c0 4.6-3 8-7 9.5C8 19 5 15.6 5 11V6Z'/><path d='M12 7v10M8.5 10.5h7'/>",
+sword:"<path d='M18 3.5h2.5V6L10 16.5 7.5 14Z'/><path d='M5.5 12.5l6 6M8 16l-3.5 3.5'/>",
+glaive:"<path d='M4 20 13 11'/><path d='M13 11c1-4 3.5-6.5 7.5-7.5-.5 4-3 7-6 8.5Z'/><path d='M11 9.5l3.5 3.5'/>",
+axe:"<path d='M4.5 20.5 14.5 8.5'/><path d='M11.5 3c5.5-.5 9.5 3.5 9.5 9.5-4 .3-7.5-1.7-9-5.5Z'/>",
+spear:"<path d='M4 20 15 9'/><path d='M14 10l1.5-5.5 4.5-1-1 4.5Z'/><path d='M11.5 10.5l2 2'/>",
+club:"<path d='M5 19.5 12.5 12'/><path d='M12.5 12c-1.5-4.5.5-8 4-8.5 3 .3 4 3.2 3 6.3-2.2 2.7-4.7 3-7 2.2Z'/><path d='M15 6.5h.01M18 8.5h.01M15.5 10h.01'/>",
+hammer:"<path d='M6.5 20.5 14 13'/><path d='M11.5 8.5 16 4l4 4-4.5 4.5Z'/>",
+horse:"<path d='M8 20.5V15c0-5 2-8.5 5.5-10.5l.5-1.5 1.5 1.5c2 1.5 3.5 4 4 6.5l-1.5 1.5-3-1-1.5 1.5v7'/><path d='M10.5 9c-.8 1.5-1.2 3-1 4.5'/><path d='M15 8h.01'/>",
+wolf:"<path d='M5 4.5l3.5 5L7 14l5 6 5-6-1.5-4.5 3.5-5L14.5 8h-5Z'/><path d='M10 12h.01M14 12h.01M11 16.5h2'/>",
+deer:"<path d='M9 9c1.5 1 4.5 1 6 0l-1.5 7c-.8 2-2.2 2-3 0Z'/><path d='M9 9 6 5V2.5M6 5H3.5M15 9l3-4V2.5M18 5h2.5M7.5 7l-2 .5M16.5 7l2 .5'/>",
+saddle:"<path d='M3.5 12c5-4 12-4 17 0l-2 4.5c-4.5-2.5-8.5-2.5-13 0Z'/><path d='M8 14.5V19M16 14.5V19'/>",
+pelt:"<path d='M6 5l2.5 2h7L18 5l1 4-2 2 1.5 3.5L17 19l-2-1.5H9L7 19l-1.5-4.5L7 11 5 9Z'/>",
+bone:"<path d='M9 9l6 6'/><circle cx='7.3' cy='6' r='2'/><circle cx='6' cy='7.3' r='2'/><circle cx='18' cy='16.7' r='2'/><circle cx='16.7' cy='18' r='2'/>",
+ore:"<path d='M4 17 7 9.5l5-3.5 6.5 2L20.5 15l-5 4.5H8Z'/><path d='M10 11.5l3 2 3-1.5M13 13.5V17'/>",
+ingot:"<path d='M3.5 17.5 6 11.5h12l2.5 6Z'/><path d='M6 11.5 8 8h8l2 3.5'/>",
+log:"<ellipse cx='17' cy='12' rx='2.8' ry='4.5'/><path d='M17 7.5H6.5C4.8 7.5 3.8 9.5 3.8 12s1 4.5 2.7 4.5H17'/><path d='M16.2 11.2c.6-.4 1.3 0 1.4.8'/>",
+herb:"<path d='M12 21V9'/><path d='M12 14c-4-.5-6-3.5-5.5-7 3.2.2 5.5 3 5.5 7Z'/><path d='M12 10.5c3.5-.5 5.5-3 5.5-7-3.5.3-5.5 3.3-5.5 7Z'/>",
+berry:"<circle cx='8.5' cy='14.5' r='3.5'/><circle cx='15.5' cy='15' r='3.5'/><circle cx='12' cy='9.5' r='3.2'/><path d='M12 6.3V3l3 1'/>",
+mushroom:"<path d='M4 12.5a8 6.5 0 0 1 16 0Z'/><path d='M10 12.5v6.5h4v-6.5'/><path d='M9 9h.01M14 8h.01'/>",
+root:"<path d='M14.5 3.5c2.5 3 2 8-1.5 11.5L8 20.5'/><path d='M14.5 3.5c-3 1.5-5 5-4.5 9M13 9l3.5-1M11.5 13 8 12'/>",
+crystal:"<path d='M12 3 17.5 9 12 21 6.5 9Z'/><path d='M6.5 9h11M12 3v18'/>",
+snow:"<path d='M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9'/><path d='M10 4.5 12 6l2-1.5M10 19.5 12 18l2 1.5'/>",
+flower:"<circle cx='12' cy='12' r='2'/><path d='M12 10c-2.5-5 2.5-5 0 0M14 12c5-2.5 5 2.5 0 0M12 14c2.5 5-2.5 5 0 0M10 12c-5 2.5-5-2.5 0 0'/>",
+gem:"<path d='M6 9 9 5h6l3 4-6 11Z'/><path d='M6 9h12M9 5l3 4 3-4M12 9v11'/>",
+scale:"<path d='M12 3.5c5 3 6 9.5 0 17-6-7.5-5-14 0-17Z'/><path d='M12 9c1.6 1.8 1.6 4.4 0 6.5'/>",
+vial:"<path d='M10 3.5h4M10.5 3.5V8L6.5 16a3.6 3.6 0 0 0 3.3 5h4.4a3.6 3.6 0 0 0 3.3-5l-4-8V3.5'/><path d='M8 14h8'/>",
+jar:"<path d='M8.5 4h7v3h-7Z'/><path d='M8 7c-2 1-3 3-3 6v4.5A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5V13c0-3-1-5-3-6'/><path d='M9 13.5h6'/>",
+fish:"<path d='M3 12c4-6 11-6 15 0-4 6-11 6-15 0Z'/><path d='M18 12l3-4v8Z'/><path d='M7.5 11h.01'/>",
+meat:"<path d='M14.5 3.5c4.5 0 6.5 5.5 3.5 8.5-2 2-5 2-7 1L7.5 16.5'/><path d='M14.5 3.5c-3.5 0-5.5 4-3.5 9.5'/><circle cx='5.6' cy='17.6' r='1.6'/><circle cx='7' cy='19.6' r='1.6'/>",
+bread:"<path d='M4 14c0-6 16-6 16 0v4.5H4Z'/><path d='M8.5 10.5l1 2.5M12 9.8l1 2.6M15.5 10.5l1 2.5'/>",
+bowl:"<path d='M3.5 11.5h17c0 5-3.8 8.5-8.5 8.5s-8.5-3.5-8.5-8.5Z'/><path d='M9.5 8.5c-1-1.5 1-3-.2-4.8M14.5 8.5c-1-1.5 1-3-.2-4.8'/>",
+pie:"<path d='M3.5 13.5h17L19 18.5H5Z'/><path d='M4 13.5c2-4.5 14-4.5 16 0'/><path d='M9 11l1 2.5M12 10.3v3.2M15 11l-1 2.5'/>",
+skewer:"<path d='M3.5 20.5l17-17'/><circle cx='8.5' cy='15.5' r='2.2'/><circle cx='12' cy='12' r='2.2'/><circle cx='15.5' cy='8.5' r='2.2'/>",
+cup:"<path d='M5 9h11v5a4.5 4.5 0 0 1-4.5 4.5h-2A4.5 4.5 0 0 1 5 14Z'/><path d='M16 10.5h1.8a2.2 2.2 0 0 1 0 4.4H16M9 6.5c-.8-1 .8-2 0-3M12 6.5c-.8-1 .8-2 0-3'/>",
+pack:"<path d='M4 8.5h16v10H4Z'/><path d='M4 11.5h16M10 8.5v-3h4v3'/>",
+sack:"<path d='M8 7c-2.8 3-3 9.5-.5 13h9c2.5-3.5 2.3-10-.5-13Z'/><path d='M8 7h8M9 4.5l3 2.5 3-2.5'/>",
+torch:"<path d='M10.5 21 12 11.5l1.5 9.5'/><path d='M12 3.5c3 2.5 3.5 5.5 0 8-3.5-2.5-3-5.5 0-8Z'/><path d='M9.5 11.5h5'/>",
+lamp:"<path d='M8 20.5h8M12 20.5v-4'/><path d='M5.5 12.5h13c0 2.5-2.9 4-6.5 4s-6.5-1.5-6.5-4Z'/><path d='M12 4c2 2 2.3 4 0 6.5-2.3-2.5-2-4.5 0-6.5Z'/>",
+pick:"<path d='M6 20.5l8-8'/><path d='M4.5 8.5C9 3.5 15.5 3 20.5 7.5 16 7 12.5 7.8 9.5 10Z'/>",
+rod:"<path d='M4 20.5 18 4.5'/><path d='M18 4.5V15'/><path d='M18 15a1.6 1.6 0 1 1-2.2 1.5'/>",
+knife:"<path d='M4.5 19.5 8.5 15.5'/><path d='M8.5 15.5 19.5 4.5c.8 5.5-3 10-8.5 12.5Z'/>",
+book:"<path d='M5 18V5.5A2 2 0 0 1 7 3.5h12V17H7a2 2 0 0 0 0 4h12'/><path d='M9 7.5h6M9 10.5h6'/>",
+letter:"<path d='M4 6.5h16v11H4Z'/><path d='M4 6.5l8 6 8-6'/>",
+ring:"<circle cx='12' cy='14.5' r='5.5'/><path d='M10 9.3 12 5.5l2 3.8'/>",
+necklace:"<path d='M5 3.5c0 7 4 8.5 7 8.5s7-1.5 7-8.5'/><circle cx='12' cy='16' r='3'/><path d='M12 12v1'/>",
+flame:"<path d='M12 3c4.5 4.5 6 8.5 4 12.5a4.5 4.5 0 0 1-8 0c-1.6-3.2 0-5.8 2-7.5 0 2.5.8 3.8 2 4.5 1.2-2.6 1-6.2 0-9.5Z'/>",
+fang:"<path d='M8 4h8c0 6-1.6 11.5-4 17-2.4-5.5-4-11-4-17Z'/><path d='M9 7.5h6'/>",
+claw:"<path d='M6 20.5c0-7 2-12 6-16.5M11 20.5c0-6 1.2-10 4-13.5M16 20.5c0-5 .8-8 3-10.5'/>",
+shard:"<path d='M9 3 17 7 14 21 6 13Z'/><path d='M9 3l2 8.5L6 13M11 11.5 14 21'/>",
+badge:"<path d='M12 3.5 19 7v7l-7 6.5L5 14V7Z'/><path d='M12 8l1.2 3 3 .3-2.2 2 .6 3-2.6-1.5-2.6 1.5.6-3-2.2-2 3-.3Z'/>",
+mane:"<path d='M6.5 3.5c3 4-1 8 2 12.5 1 1.6.3 3.5-.5 5M11.5 3.5c3 4-1 8 2 12.5 1 1.6.3 3.5-.5 5M16.5 3.5c3 4-1 8 2 12.5 1 1.6.3 3.5-.5 5'/>",
+ash:"<path d='M3 19.5c3-6 6-8 9-8s6 2 9 8Z'/><path d='M8 7.5h.01M12.5 5h.01M16.5 8h.01M10.5 9h.01'/>",
+token:"<path d='M12 3v4'/><path d='M8 7h8l-2 12-2 2-2-2Z'/><path d='M10 11h4M10.5 14.5h3'/>",
+flute:"<path d='M3.5 18.5 18.5 3.5M5.5 20.5l15-15M3.5 18.5l2 2M18.5 3.5l2 2'/><path d='M10 15h.01M13 12h.01M16 9h.01'/>",
+veil:"<path d='M5 4h14c-1 5 0 10.5-2 16-3-2-7-2-10 0-2-5.5-1-11-2-16Z'/><path d='M8 8c2.5 1 5.5 1 8 0'/>",
+dragon:"<path d='M3 18.5c3-8 7.5-12 17-14.5-2.5 3.5-3.5 6-1.5 8.5-3.5-.5-5.5.8-5.8 4-3.5-.8-6.5-.2-9.7 2Z'/><path d='M9 13.5l3.5-3.5'/>",
+misc:"<path d='M12 4l7 8-7 8-7-8Z'/>"
+};
+const IMAP={wdeer:'deer',whorse:'horse',pony:'horse',twolf:'wolf',dogs:'wolf',saddle:'saddle',
+dscalemail:'armor',bonemail:'armor',antlerplate:'armor',tokenmail:'armor',gemplate:'armor',carapace:'armor',sarmor:'armor',leather:'armor',bplate:'armor',plate:'armor',
+hshield:'shield',oshield:'shield',embercrown:'crown',helm:'helm',
+rimequilt:'coat',scalecoat:'coat',ashcloak:'coat',manacoat:'coat',rcloak:'coat',rmhide:'coat',xcoat:'coat',wcloak:'coat',cloak:'coat',coat:'coat',
+fhammer:'hammer',starsh:'sword',blackblade:'sword',wsword:'sword',wblood:'sword',wglaive:'glaive',fang:'spear',spear:'spear',wclub:'club',waxe:'axe',
+spflute:'flute',rubbing:'book',ledger:'book',altflame:'lamp',dragon:'dragon',dscale:'scale',sscale:'scale',scale:'scale',claw:'claw',rosary:'necklace',locket:'necklace',ember:'flame',charm:'token',wtoken:'token',veil:'veil',ring:'ring',letter:'letter',
+gfish:'fish',sfish:'fish',rfish:'fish',fish:'fish',fbstew:'bowl',bsoup:'bowl',pudding:'bowl',mush:'bowl',gstew:'bowl',vsoup:'bowl',sorbet:'bowl',nsoup:'bowl',bbroth:'bowl',stew:'bowl',
+mbread:'bread',sroll:'bread',bread:'bread',skewer:'skewer',jerky:'meat',roast:'meat',meat:'meat',mpie:'pie',fpie:'pie',rroot:'root',root:'root',ration:'pack',rtea:'cup',
+berry:'berry',salt:'crystal',mana:'crystal',flour:'sack',wood:'log',herb:'herb',ore:'ore',hide:'pelt',pelt:'pelt',rpelt:'pelt',bone:'bone',shroom:'mushroom',antler:'deer',
+blood:'vial',ichor:'vial',rime:'flower',ash:'ash',gem:'gem',frost:'snow',ing:'ingot',
+tr_hat:'fang',tr_brd:'scale',tr_kn:'shard',tr_ct:'badge',tr_rm:'mane',tr_rn:'ash',tr_ec:'shard',
+lamp:'lamp',torch:'torch',axe:'axe',pick:'pick',rod:'rod',knife:'knife',salve:'jar',salve2:'jar',salve3:'jar'};
+const iico=k=>`<svg viewBox='0 0 24 24' aria-hidden='true'>${ICN[IMAP[k]]||ICN.misc}</svg>`;
+
+function islot(k){const e=EQ[k],on=e&&S.eq[e.s]==k,g=S.act&&S.act.i0&&S.inv[k]>(S.act.i0[k]||0)?S.inv[k]-(S.act.i0[k]||0):0;
+return `<button class='isl${on?' on':''}' onclick="iopen('${k}')" onmouseenter="itip(event,'${k}')" onmouseleave="itip()" aria-label="${IT[k][0]} ${S.inv[k]}개">${iico(k)}${S.inv[k]>1?`<b class=isn>${S.inv[k]}</b>`:''}${g?`<i class=isg>+${g}</i>`:''}${on?'<i class=ise></i>':''}</button>`}
+function idesc(k){return TD[k]||(k.startsWith('tr_')?'우두머리의 전리품. 맡긴 사람에게 가져가거나, 모루에서 고유 장비를 만드는 데 쓴다.':{wood:'목재. 장작과 도구, 무기 자루를 만든다.',herb:'약초. 연고와 차에 들어간다.',ore:'광석. 제련하면 하칸 주괴가 된다.',hide:'가죽. 갑옷과 외투, 안장에 쓴다.',bone:'뼈. 곤봉과 갑옷, 국물에 쓴다.',gem:'보석. 장신구와 판갑에 박는다. 값이 좋다.',frost:'눈결정. 서리 기운이 서린 재료.',ember:'불씨. 꺼져 가는 불을 되살릴 실마리.',ring:'누군가 잃어버린 녹슨 반지. 시장에 팔 수 있다.',letter:'눈 속에서 주운 편지. 글씨는 거의 지워졌다. 시장에 팔 수 있다.'}[k]||'')}
+function itip(e,k){if(typeof document.createElement!='function')return;let t=document.getElementById('itip');if(!k||!S||!S.inv[k]){if(t)t.style.display='none';return}
+if(!t){t=document.createElement('div');t.id='itip';document.body.appendChild(t)}const E=EQ[k],on=E&&S.eq[E.s]==k,cat=(BCAT.find(c=>c[0]==bcat(k))||[,''])[1];
+t.innerHTML=`<b>${IT[k][0]}</b>${k=='dragon'?' <span class=m>'+dst()+'</span>':''}<span class=itm>${cat} · ${S.inv[k]}개${IT[k][1]>0?' · 값 '+IT[k][1]+'금화':''}${on?' · '+(E.s=='mount'?'타는 중':'갖춤'):''}</span>${idesc(k)?`<p>${idesc(k)}</p>`:''}${USE[k]?`<p class=itu>${USE[k][2]}</p>`:''}`;
+t.style.display='block';const r=e.currentTarget.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;let x=Math.min(Math.max(8,r.left+r.width/2-w/2),innerWidth-w-8),y=r.top-h-8;if(y<8)y=r.bottom+8;t.style.left=x+'px';t.style.top=y+'px'}
+function iopen(k){itip();if(!S.inv[k])return;const E=EQ[k],b=[];
+if(E){if(E.s=='mount'){b.push([S.eq.mount==k?'내린다':'탄다',()=>eqp(k)]);b.push(['풀어 준다',()=>ffree(k)])}else b.push([S.eq[E.s]==k?'벗는다':'갖춘다',()=>eqp(k)])}
+if(USE[k])b.push([FOOD(k)?'먹는다':'사용한다',()=>use(k)]);b.push(['닫기',null]);
+ev(IT[k][0],`${idesc(k)?`<p>${idesc(k)}</p>`:''}${USE[k]?`<p class=m>${USE[k][2]}</p>`:''}<p class=m>${(BCAT.find(c=>c[0]==bcat(k))||[,''])[1]} · ${S.inv[k]}개${IT[k][1]>0?' · 값 '+IT[k][1]+'금화':''}${k=='dragon'?' · '+dst():''}</p>`,b)}
+if(typeof window!='undefined'&&window.addEventListener)window.addEventListener('scroll',()=>itip(),{passive:true});
+function bagl(){S.eq=S.eq||{};S.bc=S.bc||{};const G={};Object.keys(S.inv).filter(k=>S.inv[k]&&IT[k]).forEach(k=>{(G[bcat(k)]=G[bcat(k)]||[]).push(k)});
+return `<div class=row><span>금화</span><b>${S.gold}</b></div>`+BCAT.filter(([c])=>G[c]).map(([c,n])=>`<details class='dl bgc' ${S.bc[c]?'':'open'} ontoggle="btog('${c}',this)"><summary>${n} <span class=m>${G[c].length}</span></summary><div class=igr>${G[c].map(islot).join('')}</div></details>`).join('')}
 function body(P){const B=AB;let h='';
 if(S.tab==0){h=`<p>${P.d}</p>`+B({t:'s'},P.sp[0],spsub(P))+rpt()}
 else if(S.tab==1)h=(S.loc=='a'?'<p>제단 앞의 큰 불꽃. 눈 가린 파수꾼 말고는 아무도 없다. 불이 타는 소리와 바람 소리만 들린다.</p>':'<p>꺼져 가는 불 곁. 사람들은 이곳에서 겨우 온기와 소문을 나눈다.</p>')+B({t:'r'},'휴식','불 곁에서 몸을 녹인다 — 한기를 모두 걷어 낸다')+(S.loc=='a'?'':B({t:'u'},'소문 듣기','불가의 사람들이 나누는 이야기를 듣는다'))+pot()+rpt();
@@ -1602,8 +1707,8 @@ const hd=`<div class=hd>${H.map(h=>`<span class='hb${h[0]==sel?' sel':''}' oncli
 let c;if(mv)c=travel();else if(V==2)c=prof();else if(V==3)c=story();else if(V==4)c=perks();
 else c=`<div class=locb><span class=m>현재 위치</span> <b>${P.n}</b><span class=m> · ${pname(P)}</span></div>`+(a&&('mw'.includes(a.t)||(!P.w&&S.spot==null&&![0,1,3].includes(S.tab)))?`<p class=m>${a.l} — <span id=rm></span> <span id=ph class=m></span> <button class='stopb sm' onclick=stop()>■ 중단</button></p>`:'')+(mapOn()?(mfold()?mfbar():mfbar()+mmap()):'')+village(P);
 const r=`<div class='bx mp-st'><span class=lg>상태</span><div style='display:flex;align-items:center;gap:8px'>${av(S.av)}<span style='min-width:0;flex:1'><b>${S.name}</b>${S.at?' <span class=tg>'+TT.find(x=>x[0]==S.at)[1]+'</span>':''} <span class=m>Lv.${clv()}</span><br><span class='m idl'>${RACE[S.race].n} · ${S.tr} · ${S.og}</span></span></div><p class=m title='날씨는 때때로 바뀐다. 사나울수록 한기가 빨리 쌓인다.'>${P.n} · ${WXN[wx()]}${WXM[wx()]>1?' (한기 '+WXM[wx()]+'배)':''}${S.fl?' · 불의 단계 '+S.fl:''}</p>${bar('체력',S.hp,mx(),'hp',S.hp+'/'+mx())}${bar('체온',100-S.cold,100,'cd',Math.round(100-S.cold)+'/100')}${bar('포만감',100-(S.hun||0),100,'hu',Math.round(100-(S.hun||0))+'/100')}${(([x,n])=>bar('경험치',x,n,'xp',x+'/'+n))(xpb())}<p class=m>공격 ${Math.round(patk())} · 받는 피해 -${Math.round(Math.min(.7,bon('dr'))*100)}%</p>${wnd()?`<p class='m dng'>깊은 상처${S.wd.n>1?' (겹침)':''} — 최대 체력·공격 -${wnd()*12}% · ${Math.ceil((S.wd.t-Date.now())/6e4)}분 남음</p>`:''}${S.cold>=70?'<p class=m>동상 위험 — 불 곁으로</p>':''}${S.ms>=2||S.tch||S.inv.torch?`<p class=m>${S.inv.lamp?'푸른 재 등잔이 길을 밝힌다':S.tch>0?'횃불 — 남은 불 '+Math.ceil(S.tch/60)+'분'+(S.inv.torch?' · 여분 '+S.inv.torch+'개':''):S.inv.torch?'횃불 '+S.inv.torch+'개 — 밖에 나가면 불을 붙인다':'횃불 없음 — 밖에서 한기가 1.5배로 쌓인다'}</p>`:''}${(S.hun||0)>=100?'<p class=m>굶주림 — 일할 때마다 체력이 깎인다</p>':(S.hun||0)>=80?'<p class=m>허기 — 힘이 빠져 공격이 약해졌다</p>':''}<div class=g2>${SN.map((n,i)=>bar(n,S.st[i],12,SC[i])).join('')}</div></div>
-<div class=mp-st>${pbox()}</div><div class='bx mp-st'><span class=lg>장비</span>${eqbox()}</div><div class='bx mp-bg'><span class=lg>가방</span>${bagl()}</div><div class='bx mp-ms'><span class=lg>임무</span>${mis()}</div><p class='pl mp-st'><span onclick=reset(this)>처음부터 다시</span></p><p class='m ver mp-st'>칼셀바도르 ${VER}</p>`;
-setTimeout(()=>mcenter(),0);morph(A,`${mtop()}${hd}<div class=adr data-mp=${MOB}><div class='feed mp-lg' id=lg>${S.log.map(l=>'<p>'+l+'</p>').join('')}</div><div class=mp-act>${c}</div><div>${r}</div></div>${mdock()}${POP&&!(S.act&&S.act.n>1)?popv():evt()||bfv()||adlg()}`);paint();blk();fshow()}
+<div class=mp-st>${pbox()}</div><div class='bx mp-st'><span class=lg>장비</span>${eqbox()}</div><div class='bx mp-ms'><span class=lg>임무</span>${mis()}</div><p class='pl mp-st'><span onclick=reset(this)>처음부터 다시</span></p><p class='m ver mp-st'>칼셀바도르 ${VER}</p>`;
+setTimeout(()=>mcenter(),0);morph(A,`${mtop()}${hd}<div class=adr data-mp=${MOB}><div class='feed mp-lg' id=lg>${S.log.map(l=>'<p>'+l+'</p>').join('')}</div><div class=midc><div class=mp-act>${c}</div><div class='bx mp-bg bagp'><span class=lg>가방</span>${bagl()}</div></div><div>${r}</div></div>${mdock()}${POP&&!(S.act&&S.act.n>1)?popv():evt()||bfv()||adlg()}`);paint();blk();fshow()}
 function tick(){STK++;if(CL.dirty&&CL.st=='on')cflush();if(EV0&&EV0.auto&&Date.now()>EV0.auto){log('망설이는 사이 몸이 먼저 움직였다.');evb(R(0,EV0.b.length-1));return}if(EV0&&EV0.auto){const c=$('#evc');if(c)c.textContent=Math.max(0,Math.ceil((EV0.auto-Date.now())/1000))+'초'}if(!S||!S.act){try{if(document.title!='칼셀바도르')document.title='칼셀바도르'}catch(_){}return}if(resolve()){render();if(!S.act)return}paint()}
 // 진행 중인 행동의 막대·남은 시간·지도 표식만 다시 칠한다 (0.5초마다, 그리고 화면 갱신 직후)
 function paint(){if(!S||!S.act)return;const a=S.act,e=(Date.now()-a.t0)/1000,f=e/a.d%1,lf=a.n>=9999?(a.done+1)+'번째 · 계속':fmt(a.n*a.d-e);const pb=$('#pb');if(pb)pb.style.width=Math.min(100,e/a.d*100)+'%';const cf=$('#cf');if(cf)cf.style.width=(100-f*100)+'%';if(a.t=='m'){const F=PL[a.fr],T=PL[a.to],p=Math.min(1,e/a.d),m=$('#mk');if(F&&m){m.setAttribute('cx',X(F.x+(T.x-F.x)*p));m.setAttribute('cy',Y(F.y+(T.y-F.y)*p))}}const r2=$('#rm2');if(r2)r2.textContent=a.n>=9999?lf:(a.n>1?(a.done+1)+'/'+a.n+' · ':'')+lf;try{document.title='⏳ '+(a.n>=9999?a.l:lf)+' · 칼셀바도르'}catch(_){}const rm=$('#rm');if(rm)rm.textContent=lf;const ph=$('#ph');if(ph&&'hb'.includes(a.t)){const q=f,P=a.t=='b'?['우두머리의 영역으로 들어선다','주위가 이상하리만치 고요하다','…무언가 거대한 것이 움직인다','— 마주 섰다!']:['눈 위의 흔적을 찾는다','발자국을 쫓는다','숨을 죽이고 다가간다','— 맞닥뜨렸다!'];ph.textContent='· '+P[q<.3?0:q<.6?1:q<.88?2:3]}}

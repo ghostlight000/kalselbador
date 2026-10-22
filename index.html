@@ -249,7 +249,7 @@ h1{text-shadow:none}
 .bx>.lg,.lg{position:static;display:block;background:none;padding:0 0 6px;margin:0 0 10px;border-bottom:1px solid var(--b);font-size:15px;color:var(--a);letter-spacing:.06em}
 .card{border:1px solid transparent;border-radius:0;border-image:var(--sv-card) 12 fill / 12px stretch;background:none;box-shadow:none;color:var(--t)}
 .ov .card{filter:drop-shadow(0 10px 24px rgba(0,0,0,.5))}
-.card::before,.card::after{background:#e3d7bf;border-color:rgba(122,90,44,.5)}
+.card::before,.card::after{width:9px;height:9px;margin-left:-4.5px;background:var(--a);border:0}.card::before{top:-4.5px}.card::after{bottom:-4.5px}
 .qc{border:1px solid transparent;border-radius:0;border-image:var(--sv-qc) 10 fill / 10px stretch;background:none;color:var(--t);padding:10px 14px;margin:0 0 8px;filter:drop-shadow(3px 3px 0 rgba(120,95,60,.32))}
 .qc.mn{border-left:1px solid transparent;background:none}
 .qc .m{color:var(--m)}
@@ -453,6 +453,8 @@ button.isl.on{border-image-source:var(--sv-btnon);color:var(--a)}
 .bgn{margin-left:4px;font-size:11px;opacity:.75}.bgg{font-style:normal;font-weight:700;margin-left:3px;color:var(--sage)}.bgt .sg.on .bgg{color:inherit}
 @media(max-width:600px){.bagp.fold .bgb{display:block}.bagp .bgx{display:none}.bagp .bgh{cursor:default}}
 @media(min-width:601px){.adr .bx.mp-ms{display:none}}
+
+.ov{overflow-y:auto;align-items:flex-start}.ov .card,.ov .card.hc{max-height:none;overflow:visible;margin:auto}
 </style></head><body><main><div class=tbar style='text-align:right'><button id=tb onclick=testm() style='display:none'>즉시 완료(테스트): 끔</button> <button onclick=theme()>◐ 테마</button> <button onclick=help(0)>？ 도움말</button> <button onclick=sndo()>♪ 소리</button> <button onclick=svo()>☁ 기록</button> <button onclick=fbo()>✎ 의견</button></div><div id="app"></div><div id=hlp></div><div id=blk></div><div id=bin></div><div id=bsc></div><div id=fbx></div><div id=sndx></div><div id=svx></div></main>
 <script>
 

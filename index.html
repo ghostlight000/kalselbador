@@ -491,7 +491,7 @@ button.irw.on{border-image-source:var(--sv-btnon)}
 .ird{font-size:12px;line-height:1.35;color:var(--m);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .irc{font-size:13px;font-weight:700;color:var(--m);white-space:nowrap}.irg{font-style:normal;margin-left:4px;color:var(--sage)}
 .ire{font-style:normal;font-size:11px;font-weight:700;color:var(--a);margin-left:6px}
-.evbs>button.p.gh.chz:hover:not(:disabled),.evbs>button.p.gh.chz:focus-visible{--bL:inherit!important;--bR:inherit!important;--bM:inherit!important;--bLh:inherit!important;--bRh:inherit!important;--bMh:inherit!important;--bt:inherit!important}
+.evbs>button.p.gh.chz:hover:not(:disabled),.evbs>button.p.gh.chz:focus-visible,.bfa>button.p.gh.chz:hover:not(:disabled),.bfa>button.p.gh.chz:focus-visible{--bL:inherit!important;--bR:inherit!important;--bM:inherit!important;--bLh:inherit!important;--bRh:inherit!important;--bMh:inherit!important;--bt:inherit!important}
 .stt{margin:0 0 12px}
 .sdt>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0;padding:2px 0}
 .sdt>summary::-webkit-details-marker{display:none}
@@ -1591,7 +1591,7 @@ return `<div class=ov><div class='card bfc'><div class='bbh${B.rage?' rg':''}'><
 <div class=bfh><div class=row><span>나</span><b>${Math.max(0,S.hp)} / ${mx()}</b></div>${bar(S.hp,mx(),'tl')}</div>
 <div class=bfl>${(B.log||[]).map(x=>`<p>${x}</p>`).join('')}</div>
 <div class='bft ${B.mv}'><span class=tg>${BMV[B.mv][0]}</span><p>${tel}</p><p class=m>${BMV[B.mv][1]}</p></div>
-<div class=bfa>${A.map(([c,t,h],i)=>`<button class='ab p${i?' gh':''}' ${c=='heal'&&!k?'disabled':''} onclick="bact('${c}')" title="${h}">${t}</button>`).join('')}</div>${bfk(B)}</div></div>`}
+<div class=bfa>${A.map(([c,t,h],i)=>`<button class='ab p gh chz' ${c=='heal'&&!k?'disabled':''} onclick="bact('${c}')" title="${h}">${t}</button>`).join('')}</div>${bfk(B)}</div></div>`}
 
 // 우두머리 등장 연출 — 이름이 화면을 덮고, 체력바가 차오른다
 const BIN_T=3600,BEP={wolfking:'눈보라를 끄는 늑대들의 왕',brood:'갱도 밑바닥에 웅크린 어미',knight:'투구 속이 빈 불의 기사',centurion:'죽어서도 명령을 지키는 자',rmking:'새끼를 노리는 붉은 갈기',remnant:'불이 태어난 방에 남은 형상',eclipse:'별의 꼭대기에 드리운 그림자'};let BINT=0;

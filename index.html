@@ -1173,7 +1173,7 @@ b.innerHTML=`<div class=ov onclick="if(event.target==this)svc()"><div class='car
 // ============================================================
 // 연금술 — 증류기, 강화 물약, 투척 물약 / 전투 기술
 // ============================================================
-function still(){const kn=RC.map((r,i)=>[r,i]).filter(([r])=>S.rcp[r[0]]&&ALC.includes(r[0]));return `<h2>증류기</h2><p class=m>약초와 광물을 우려 약을 만든다. 만들 때마다 연금술 숙련이 오르고, 숙련이 오르면 새 약 만드는 법을 깨친다.</p>`+(kn.length?kn.map(([r,i])=>crow(r,i)).join(''):'<p class=m>아직 아는 약이 없다.</p>')}
+function still(){const kn=RC.map((r,i)=>[r,i]).filter(([r])=>S.rcp[r[0]]&&ALC.includes(r[0]));return `<h2>증류기</h2><p class=m>약초와 광물을 우려 약을 만든다. 만들 때마다 연금술 숙련이 오르고, 숙련이 오르면 새 약 만드는 법을 깨친다.</p>`+(kn.length?`<details class=dl ${OPN.a?'open':''} ontoggle='OPN.a=this.open'><summary>이미 알고 있는 약 <span class=m>${kn.length}개</span></summary>${kn.map(([r,i])=>crow(r,i)).join('')}</details>`:'<p class=m>아직 아는 약이 없다.</p>')}
 function smul(k){if(/^salve/.test(k))return 1+(pf('s_mend')?.5:0)+(pf('a_herb')?.3:0)+(pf('a_elixir')?.3:0);if(FOOD(k)&&pf('f_feast'))return 1.3;return 1}
 function buff(k){S.bfx=S.bfx||{};const m=pf('a_strong')?1.5:1,v={};for(const x in BUFF[k])v[x]=BUFF[k][x]*m;S.bfx[k]={t:Date.now()+15*6e4*(pf('a_long')?1.5:1),v}}
 function bfxb(x){const B=S&&S.bfx;if(!B)return 0;let v=0;const n=Date.now();for(const k in B){if(!B[k]||B[k].t<n)continue;v+=B[k].v[x]||0}return v}
